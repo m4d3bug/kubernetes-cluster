@@ -1,0 +1,27 @@
+---
+api_version: "2"
+image: "generic/centos7"
+ip_part: "10.9.6"
+router: "10.9.6.1"
+dhcp_enabled: "true"
+zone: "pocz"
+user: "vagrant"
+domain_prefix: "06-"
+
+cluster:
+    master: "master-node"
+    node: "worker-node"
+
+resources:
+    master:
+        cpus: 2
+        memory: 4096
+        storage_pool: "Default"
+    node:
+        cpus: 4
+        memory: 8192
+        storage_pool: "Default"
+        count: 2
+
+net:
+    network_type: private_network

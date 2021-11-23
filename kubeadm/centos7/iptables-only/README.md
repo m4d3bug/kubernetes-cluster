@@ -39,4 +39,3 @@ worker-node-2   Ready    worker-node-2          22m   v1.21.0
 ```
 
 And you are ready to use :smile:
-

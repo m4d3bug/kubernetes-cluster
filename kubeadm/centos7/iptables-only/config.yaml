@@ -1,6 +1,6 @@
 ---
 api_version: "2"
-image: "generic/centos8"
+image: "generic/centos7"
 ip_part: "10.9.6"
 router: "10.9.6.1"
 dhcp_enabled: "true"

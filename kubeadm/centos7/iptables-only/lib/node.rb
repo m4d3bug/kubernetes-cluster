@@ -3,7 +3,7 @@ config.vm.define "#{k8s['cluster']['node']}-#{i}" do |subconfig|
     subconfig.vm.box_check_update = false
 
     subconfig.vm.hostname = "#{k8s['cluster']['node']}-#{i}"
-    subconfig.vm.network :private_network,
+    subconfig.vm.network "private_network",
 	ip: "#{k8s['ip_part']}.#{i + 10}",
         libvirt__dhcp_enabled: "#{k8s['dhcp_enabled']}",
         libvirt__network_name: "#{k8s['zone']}",
@@ -14,6 +14,10 @@ config.vm.define "#{k8s['cluster']['node']}-#{i}" do |subconfig|
         lv.memory = k8s['resources']['node']['memory']
         lv.cpus = k8s['resources']['node']['cpus']
         lv.storage_pool_name = k8s['resources']['node']['storage_pool'] 
+        lv.machine_virtual_size = k8s['resources']['node']['machine_space']
+ 	lv.storage "file",
+          size: k8s['resources']['node']['size'],
+          type: k8s['resources']['node']['type']
     end
 
     subconfig.vm.provision "#{k8s['cluster']['master']}-initial-setup", type: "shell" do |ins|

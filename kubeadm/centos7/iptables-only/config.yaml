@@ -17,11 +17,15 @@ resources:
         cpus: 2
         memory: 4096
         storage_pool: "Default"
+        machine_space: 150
     node:
         cpus: 4
         memory: 8192
         storage_pool: "Default"
         count: 2
+        machine_space: 150
+        size: 399G
+        type: qcow2
 
 net:
     network_type: private_network

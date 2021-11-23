@@ -39,11 +39,11 @@ config.vm.define "#{k8s['cluster']['master']}" do |subconfig|
         whu.args   = ["#{k8s['user']}", "#{k8s['resources']['node']['count']}", "#{k8s['ip_part']}"]
     end
 
-    subconfig.vm.provision "Check Timezone", type: "shell" do |check_timezone|
-        check_timezone.inline = <<-SHELL
-            date
-        SHELL
-    end
+#    subconfig.vm.provision "Prepare for K8S resource", type: "shell" do |prepare_resource|
+#        prepare_resource.inline = <<-SHELL
+#            timedatectl set-timezone Asia/Shanghai
+#        SHELL
+#    end
 
     subconfig.vm.provision "Reboot to load all config", type:"shell", inline: "shutdown -r now"
 end

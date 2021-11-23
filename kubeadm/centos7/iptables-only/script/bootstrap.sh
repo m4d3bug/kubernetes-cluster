@@ -57,4 +57,6 @@ sysctl --system
 sed -i '/swap/d' /etc/fstab
 swapoff -a
 
+timedatectl set-timezone Asia/Shanghai
+
 echo "ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa <<<y" | su - ${1}

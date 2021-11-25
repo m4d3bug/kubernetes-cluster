@@ -16,13 +16,13 @@ config.trigger.after :up do |trigger|
 
         1.step(k8s['resources']['node']['count']) do |m|
             wpub, stdeerr, status = Open3.capture3("vagrant ssh --no-tty -c 'cat /home/" + k8s['user'] + "/.ssh/id_rsa.pub' " + k8s['cluster']['node'] + "-#{m}")
-            system("vagrant ssh --no-tty -c 'echo \"#{wpub}\" >> /home/" + k8s['user'] + "/.ssh/authorized_keys' " + k8s['cluster']['master'])
+#            system("vagrant ssh --no-tty -c 'echo \"#{wpub}\" >> /home/" + k8s['user'] + "/.ssh/authorized_keys' " + k8s['cluster']['master'])
             system("vagrant ssh --no-tty -c 'echo \"#{mpub}\" >> /home/" + k8s['user'] + "/.ssh/authorized_keys' " + k8s['cluster']['node'] + "-#{m}")
 
             system("vagrant ssh --no-tty -c 'sudo #{kubeadm_join}' " + k8s['cluster']['node'] + "-#{m}")
-            system("vagrant ssh --no-tty -c 'mkdir -p /home/#{k8s['user']}/.kube' " + k8s['cluster']['node'] + "-#{m}")
-            system("vagrant ssh --no-tty -c 'scp -o StrictHostKeyChecking=no #{k8s['user']}@#{k8s['cluster']['master']}:/etc/kubernetes/admin.conf /home/#{k8s['user']}/.kube/' " + k8s['cluster']['node'] + "-#{m}")
-            system("vagrant ssh --no-tty -c 'echo \"export KUBECONFIG=\${HOME}/.kube/admin.conf\" >> /home/#{k8s['user']}/.bash_profile' #{k8s['cluster']['node']}" + "-#{m}")
+#            system("vagrant ssh --no-tty -c 'mkdir -p /home/#{k8s['user']}/.kube' " + k8s['cluster']['node'] + "-#{m}")
+#            system("vagrant ssh --no-tty -c 'scp -o StrictHostKeyChecking=no #{k8s['user']}@#{k8s['cluster']['master']}:/etc/kubernetes/admin.conf /home/#{k8s['user']}/.kube/' " + k8s['cluster']['node'] + "-#{m}")
+#            system("vagrant ssh --no-tty -c 'echo \"export KUBECONFIG=\${HOME}/.kube/admin.conf\" >> /home/#{k8s['user']}/.bash_profile' #{k8s['cluster']['node']}" + "-#{m}")
             system("vagrant ssh --no-tty -c 'kubectl label nodes #{k8s['cluster']['node']}-#{m} kubernetes.io/role=#{k8s['cluster']['node']}-#{m}' " + k8s['cluster']['node'] + "-#{m}")
         end
 

@@ -22,6 +22,8 @@ config.vm.define "#{k8s['cluster']['master']}" do |subconfig|
         ins.args   = ["#{k8s['user']}"]
     end
 
+    subconfig.vm.provision "Prepare the k8s images", type:"shell", inline: "kubeadm config images pull"
+
     # Hostfile :: Master node
     subconfig.vm.provision "master-hostfile", type: "shell" do |mhf|
         mhf.inline = <<-SHELL

@@ -12,9 +12,11 @@ EOF
 
 sed -i 's/enforcing/disabled/g' /etc/selinux/config /etc/selinux/config
 yum update -y
+yum makecache fast
 yum install -y epel-release git wget telnet vim net-tools zip unzip wget curl yum-utils device-mapper-persistent-data lvm2 kubelet kubeadm kubectl --disableexcludes=kubernetes
 
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+yum makecache fast
 yum install -y docker-ce iproute-tc
 
 sudo mkdir /etc/docker
@@ -55,5 +57,7 @@ sysctl --system
 # Disable all memory swaps to increase performance.
 sed -i '/swap/d' /etc/fstab
 swapoff -a
+
+timedatectl set-timezone Asia/Shanghai
 
 echo "ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa <<<y" | su - ${1}
